@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MobTS_Projekti</string>
+    <string-array name="menu">
+        <item>Etusivu</item>
+        <item>Uni</item>
+        <item>Liikkuminen</item>
+        <item>Ruoka</item>
+        <item>Saavutukset</item>
+    </string-array>
+</resources>
