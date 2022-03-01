@@ -3,45 +3,38 @@ package com.example.mobts_projekti;
 import android.content.Intent;
 
 public class Counter {
-    private int mealValue;
-    private int drinkValue;
-    private int exerciseValue;
 
-    public Counter(){
+    private int value = 0;
+    private int max;
+    private int min;
+    private int step;
+
+    public Counter(int newMax, int newMin, int newStep){
+        this.max = newMax;
+        this.min = newMin;
+        this.step = newStep;
     }
 
-    public void addDrink(int amount){
-    if (drinkValue+amount<=10000){
-        drinkValue += amount;
-    }
-    }
-
-    public void addMeal(){
-        if (mealValue<=15) {
-            mealValue++;
+    public void add(){
+        if (value<max) {
+            value = value + step;
         }
     }
 
-    public void resetDay(){
-        mealValue = 0;
-        drinkValue = 0;
-        exerciseValue = 0;
+    public void subtract(){
+        if (value > min){
+            value = value - step;
+        }
     }
 
-    public void addExercise(int time){
-        exerciseValue += time;
+    public void reset(){
+        value = 0;
     }
 
-    public String getWaterValue(){ return Integer.toString(drinkValue);
+    public String getValue(){
+        return Integer.toString(value);
     }
 
-    public String getMealValue(){
-        return Integer.toString(mealValue);
-    }
-
-    public String getExerciseValue(){
-        return Integer.toString(exerciseValue);
-    }
 }
 
 
