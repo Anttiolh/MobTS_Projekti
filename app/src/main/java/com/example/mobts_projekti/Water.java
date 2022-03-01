@@ -4,12 +4,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Water extends AppCompatActivity implements Actions {
-    public Water(){
+public class Water implements Actions {
 
-    }
-    public Counter counter = new Counter(10000, 0, 100);
-
+    Counter counter = new Counter(10000,0,100);
     @Override
     public void add() {
         counter.add();
