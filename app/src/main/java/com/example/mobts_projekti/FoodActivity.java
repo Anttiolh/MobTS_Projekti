@@ -12,7 +12,6 @@ public class FoodActivity extends AppCompatActivity {
     Water water;
     Food food;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
