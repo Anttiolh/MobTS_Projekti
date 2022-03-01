@@ -38,7 +38,6 @@ public class SleepActivity extends AppCompatActivity {
         tp.setIs24HourView(true);
         tp.setVisibility(View.VISIBLE);
         button.setVisibility(View.VISIBLE);
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
