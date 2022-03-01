@@ -4,24 +4,27 @@ import android.content.Intent;
 
 public class Counter {
     private int mealValue;
-    private int waterValue;
+    private int drinkValue;
     private int exerciseValue;
 
     public Counter(){
-        //this.current = this.start;
     }
 
-    public void addWater(int amount){
-        waterValue += amount;
+    public void addDrink(int amount){
+    if (drinkValue+amount<=10000){
+        drinkValue += amount;
+    }
     }
 
     public void addMeal(){
-        mealValue++;
+        if (mealValue<=15) {
+            mealValue++;
+        }
     }
 
     public void resetDay(){
         mealValue = 0;
-        waterValue = 0;
+        drinkValue = 0;
         exerciseValue = 0;
     }
 
@@ -29,8 +32,7 @@ public class Counter {
         exerciseValue += time;
     }
 
-    public String getWaterValue(){
-        return Integer.toString(waterValue);
+    public String getWaterValue(){ return Integer.toString(drinkValue);
     }
 
     public String getMealValue(){
