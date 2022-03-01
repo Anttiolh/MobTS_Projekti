@@ -12,6 +12,7 @@ public class Water implements Actions {
         counter.add();
     }
 
+
     @Override
     public void subtract() {
         counter.subtract();
