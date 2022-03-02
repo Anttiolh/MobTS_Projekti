@@ -1,25 +1,21 @@
 package com.example.mobts_projekti;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.time.ZoneId;
 
-public interface Actions {
+public abstract class Actions extends AppCompatActivity {
     Counter counter = new Counter(16,0,1);
-    /*
-    public void add();
-    public void subtract();
-    public String getValue();
 
-     */
-
-    default void add(){
+    public void add(){
         counter.add();
     }
 
-    default void subtract(){
+    public void subtract(){
         counter.subtract();
     }
 
-    default String getValue(){
+    public String getValue(){
        return counter.getValue();
     }
 }

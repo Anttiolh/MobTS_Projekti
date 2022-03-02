@@ -5,6 +5,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class Food implements Actions{
-
+public class Food extends Actions{
+    public Food(){
+        counter = new Counter(16, 0, 1);
+    }
 }

@@ -31,7 +31,8 @@ public class Counter {
         value = 0;
     }
 
-    public String getValue(){
+    public String getValue()
+    {
         return Integer.toString(value);
     }
 
