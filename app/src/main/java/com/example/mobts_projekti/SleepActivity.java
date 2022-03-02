@@ -3,6 +3,7 @@ package com.example.mobts_projekti;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
@@ -19,8 +20,6 @@ import java.util.Calendar;
 public class SleepActivity extends AppCompatActivity {
     private static final String TAG = "TESTI";
     private ArrayList<Integer> SleepHours = new ArrayList<>();
-    private int hours;
-    private int minutes;
     private int hour;
     private int minute;
     int status = 0;
@@ -31,7 +30,7 @@ public class SleepActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sleep);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     public void createAlarm(View v){
         TimePicker tp = findViewById(R.id.timePicker);
         Button button = findViewById(R.id.submit_button);
@@ -39,6 +38,8 @@ public class SleepActivity extends AppCompatActivity {
         tp.setVisibility(View.VISIBLE);
         button.setVisibility(View.VISIBLE);
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void setAlarm(View v){
