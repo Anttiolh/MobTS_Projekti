@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.time.ZoneId;
 
-public abstract class Actions extends AppCompatActivity {
+public abstract class Actions{
     Counter counter = new Counter(16,0,1);
 
     public void add(){
