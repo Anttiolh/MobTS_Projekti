@@ -35,7 +35,6 @@ public class FoodActivity extends AppCompatActivity {
         drinkNumber = (water.getValue());
         drinkHit.setText(drinkNumber + "ml");
     }
-
     public void subtractWater(View view){
         water.subtract();
         TextView drinkHit = findViewById(R.id.drinkCountText);
