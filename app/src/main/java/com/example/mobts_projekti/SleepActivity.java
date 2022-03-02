@@ -45,6 +45,7 @@ public class SleepActivity extends AppCompatActivity {
             tv.setVisibility(View.VISIBLE);
             removeButton.setVisibility(View.VISIBLE);
             tv.setText("Herätys asetettu! Aikaa herätykseen: 1 tunti");
+
         }
     }
 
