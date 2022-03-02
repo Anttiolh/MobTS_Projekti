@@ -3,10 +3,7 @@ package com.example.mobts_projekti;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -22,7 +20,7 @@ public class SleepActivity extends AppCompatActivity {
     private ArrayList<Integer> SleepHours = new ArrayList<>();
     private int hour;
     private int minute;
-    int status = 0;
+    int status;
     AlarmActivity alarm = new AlarmActivity();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +32,20 @@ public class SleepActivity extends AppCompatActivity {
     public void createAlarm(View v){
         TimePicker tp = findViewById(R.id.timePicker);
         Button button = findViewById(R.id.submit_button);
-        tp.setIs24HourView(true);
-        tp.setVisibility(View.VISIBLE);
-        button.setVisibility(View.VISIBLE);
+        Button removeButton = findViewById(R.id.removeButton);
+        TextView tv = findViewById(R.id.alarmTime);
+        if (status == 0) {
+            tp.setIs24HourView(true);
+            tp.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+            status++;
+        } else if (status == 1) {
+            tp.setVisibility(View.INVISIBLE);
+            button.setVisibility(View.INVISIBLE);
+            tv.setVisibility(View.VISIBLE);
+            removeButton.setVisibility(View.VISIBLE);
+            tv.setText("Herätys asetettu! Aikaa herätykseen: 1 tunti");
+        }
     }
 
 
@@ -75,6 +84,10 @@ public class SleepActivity extends AppCompatActivity {
         Log.d(TAG, "Power nap alarm is se to ring at: " + hour + minute);
         AlarmActivity x = new AlarmActivity(hour, minute);
         x.setAlarm();
+    }
+
+    public void removeAlarm(View v){
+        alarm.removeAlarm();
     }
 
     private void movementDetector(SensorEvent event){

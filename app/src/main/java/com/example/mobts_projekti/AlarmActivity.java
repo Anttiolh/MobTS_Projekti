@@ -21,7 +21,8 @@ public class AlarmActivity extends AppCompatActivity {
     private int minute;
     private int currentHour;
     private int currentMinute;
-    private boolean status = false;
+    private boolean status;
+    private int number;
 
     public AlarmActivity(int hour, int minute){
         this.hour = hour;
@@ -34,22 +35,28 @@ public class AlarmActivity extends AppCompatActivity {
     }
     public void setAlarm() {
         Log.d(TAG, "AlarmActivity sets an alarm with these parameters: " + this.hour + this.minute);
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    Calendar calendar = Calendar.getInstance();
-                    currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                    currentMinute = calendar.get(Calendar.MINUTE);
-                    if (currentHour == hour && currentMinute == minute) {
-                        Log.d(TAG, "PERKELE!");
-                        status = true;
-                    }
-                    Log.d(TAG, "Runned!");
+        status = false;
+        while (status == false) {
+                Calendar calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+                if (currentHour == hour && currentMinute == minute) {
+                    Log.d(TAG, "PERKELE!");
+                    status = true;
+                    break;
                 }
-            }, 1000);
+                Log.d(TAG, "Runned! Current time is: " + currentHour + "." + currentMinute);
+                try {
+                    Thread.sleep(20000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d(TAG,"Status is true now");
         }
 
     public void removeAlarm(){
-
+        status = true;
     }
 
     public void playAlarm(){
