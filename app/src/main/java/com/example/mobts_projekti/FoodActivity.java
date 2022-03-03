@@ -1,16 +1,28 @@
 package com.example.mobts_projekti;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.mobts_projekti.percistance.SavedUserData;
+import com.example.mobts_projekti.percistance.Utils;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 
 public class FoodActivity extends AppCompatActivity {
     Water water;
     Food food;
+
+    String today = Utils.now();
+    List<Actions> fullList = (List<Actions>) SavedUserData.ReadObjectFromFile();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

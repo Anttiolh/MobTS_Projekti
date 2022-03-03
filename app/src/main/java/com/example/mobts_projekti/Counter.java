@@ -2,7 +2,9 @@ package com.example.mobts_projekti;
 
 import android.content.Intent;
 
-public class Counter {
+import java.io.Serializable;
+
+public class Counter implements Serializable {
 
     private int value = 0;
     private int max;
@@ -13,6 +15,10 @@ public class Counter {
         this.max = newMax;
         this.min = newMin;
         this.step = newStep;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public void add(){
@@ -34,6 +40,9 @@ public class Counter {
     public String getValue()
     {
         return Integer.toString(value);
+    }
+    public int getValueRaw(){
+        return value;
     }
 
 }
