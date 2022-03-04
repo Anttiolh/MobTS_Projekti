@@ -34,6 +34,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
     private Sensor stepCounter;
     private boolean isCounterPresent;
     private int stepCount = 0;
+    private boolean status;
     BarChart chart;
     RadioGroup rg;
     TextView exerciseInfo;
@@ -106,16 +107,29 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
     }
 
     public void addExercise(View v){
-        editText.setText("");
-        rg.clearCheck();
-        chart.setVisibility(View.INVISIBLE);
-        rg.setVisibility(View.VISIBLE);
-        exerciseInfo.setVisibility(View.VISIBLE);
-        chooseFromMenu.setVisibility(View.VISIBLE);
-        chooseStress.setVisibility(View.VISIBLE);
-        editText.setVisibility(View.VISIBLE);
-        spinner.setVisibility(View.VISIBLE);
-        button.setVisibility(View.VISIBLE);
+        if (!status) {
+            editText.setText("");
+            rg.clearCheck();
+            chart.setVisibility(View.INVISIBLE);
+            rg.setVisibility(View.VISIBLE);
+            exerciseInfo.setVisibility(View.VISIBLE);
+            chooseFromMenu.setVisibility(View.VISIBLE);
+            chooseStress.setVisibility(View.VISIBLE);
+            editText.setVisibility(View.VISIBLE);
+            spinner.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+            status = true;
+        } else if (status){
+            chart.setVisibility(View.VISIBLE);
+            rg.setVisibility(View.INVISIBLE);
+            exerciseInfo.setVisibility(View.INVISIBLE);
+            chooseFromMenu.setVisibility(View.INVISIBLE);
+            chooseStress.setVisibility(View.INVISIBLE);
+            editText.setVisibility(View.INVISIBLE);
+            spinner.setVisibility(View.INVISIBLE);
+            button.setVisibility(View.INVISIBLE);
+            status = false;
+        }
     }
 
     public void saveExercise(View v){
@@ -147,5 +161,6 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         editText.setVisibility(View.INVISIBLE);
         spinner.setVisibility(View.INVISIBLE);
         button.setVisibility(View.INVISIBLE);
+        status = false;
     }
 }
