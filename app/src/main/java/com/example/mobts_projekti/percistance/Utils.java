@@ -32,6 +32,7 @@ public class Utils {
         return fooList.stream().filter(f -> (type == f.type && sdf.format(f.getCalendar().getTime()).equals(calendar))).collect(Collectors.toList());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static List<Actions> recordsSavedForDate(List<Actions> fooList, String calendar) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return fooList.stream().filter(f -> (sdf.format(f.getCalendar().getTime()).equals(calendar))).collect(Collectors.toList());
