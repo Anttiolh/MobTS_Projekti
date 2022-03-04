@@ -16,7 +16,8 @@ public class SavedUserData {
         Food,
         Water,
         Steps,
-        Sleep
+        Sleep,
+        Exercises
     }
 
     //saving files

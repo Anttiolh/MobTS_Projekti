@@ -13,6 +13,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,9 +21,11 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ExerciseActivity extends AppCompatActivity implements SensorEventListener {
@@ -41,7 +44,6 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
     Button button;
     String exerciseStress;
     String exerciseContents;
-    HashMap<String, String> exercises = new HashMap<>();
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -51,7 +53,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         chart = findViewById(R.id.BarChart);
         rg = findViewById(R.id.RadioGroup);
         exerciseInfo = findViewById(R.id.textView2);
-        chooseFromMenu = findViewById(R.id.textView3);
+        chooseFromMenu = findViewById(R.id.textView4);
         chooseStress = findViewById(R.id.textView5);
         editText = findViewById(R.id.ExerciseName);
         spinner = findViewById(R.id.exerciseMenu);
@@ -102,7 +104,11 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
             sensorManager.unregisterListener(this,stepCounter);
         }
     }
+
     public void addExercise(View v){
+        editText.setText("");
+        exerciseStress = "";
+        rg.clearCheck();
         chart.setVisibility(View.INVISIBLE);
         rg.setVisibility(View.VISIBLE);
         exerciseInfo.setVisibility(View.VISIBLE);
@@ -111,7 +117,10 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         editText.setVisibility(View.VISIBLE);
         spinner.setVisibility(View.VISIBLE);
         button.setVisibility(View.VISIBLE);
-        exerciseContents = (String) exerciseInfo.getText();
+    }
+
+    public void saveExercise(View v){
+        exerciseContents = editText.getText().toString();
         if (rg.getCheckedRadioButtonId() == R.id.radioButton_light){
             exerciseStress = "Kevyt";
         } else if (rg.getCheckedRadioButtonId() == R.id.radioButton_medium){
@@ -119,11 +128,16 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         } else {
             exerciseStress = "Raskas";
         }
-
-    }
-
-    public void saveExercise(View v){
-        exercises.put(exerciseContents, exerciseStress);
+        if (exerciseContents.matches("")){
+            Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (exerciseStress.matches("")){
+            Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        SaveExercise save = new SaveExercise(exerciseContents, exerciseStress);
+        save.add();
         chart.setVisibility(View.VISIBLE);
         rg.setVisibility(View.INVISIBLE);
         exerciseInfo.setVisibility(View.INVISIBLE);
@@ -132,7 +146,5 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         editText.setVisibility(View.INVISIBLE);
         spinner.setVisibility(View.INVISIBLE);
         button.setVisibility(View.INVISIBLE);
-        TextView test = findViewById(R.id.test_text);
-        test.setText(exercises.get(1));
     }
 }

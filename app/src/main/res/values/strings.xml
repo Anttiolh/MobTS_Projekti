@@ -7,4 +7,17 @@
         <item>Ruoka</item>
         <item>Saavutukset</item>
     </string-array>
+
+    <string-array name="exercises">
+        <item>Kävely</item>
+        <item>Juoksu</item>
+        <item>Hölkkäys</item>
+        <item>Tennis</item>
+        <item>Sulkapallo</item>
+        <item>Squash</item>
+        <item>Jalkapallo</item>
+        <item>Jääkiekko</item>
+        <item>Padel</item>
+        <item>Saliharjoittelu</item>
+    </string-array>
 </resources>
