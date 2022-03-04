@@ -107,7 +107,6 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
 
     public void addExercise(View v){
         editText.setText("");
-        exerciseStress = "";
         rg.clearCheck();
         chart.setVisibility(View.INVISIBLE);
         rg.setVisibility(View.VISIBLE);
@@ -125,8 +124,10 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
             exerciseStress = "Kevyt";
         } else if (rg.getCheckedRadioButtonId() == R.id.radioButton_medium){
             exerciseStress = "Keskiraskas";
-        } else {
+        } else if (rg.getCheckedRadioButtonId() == R.id.radioButton_heavy) {
             exerciseStress = "Raskas";
+        } else {
+            exerciseStress = "";
         }
         if (exerciseContents.matches("")){
             Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
