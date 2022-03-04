@@ -14,8 +14,10 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ExerciseActivity extends AppCompatActivity implements SensorEventListener {
+    private static final String TAG = "TESTI";
     private TextView tvStepCounter;
     private SensorManager sensorManager;
     private Sensor stepCounter;
@@ -45,12 +48,14 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
     Button button;
     String exerciseStress;
     String exerciseContents;
+    private Spinner exercises;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
+        exercises = findViewById(R.id.exerciseMenu);
         chart = findViewById(R.id.BarChart);
         rg = findViewById(R.id.RadioGroup);
         exerciseInfo = findViewById(R.id.textView2);
@@ -110,6 +115,9 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         if (!status) {
             editText.setText("");
             rg.clearCheck();
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.exercises, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+            exercises.setAdapter(adapter);
             chart.setVisibility(View.INVISIBLE);
             rg.setVisibility(View.VISIBLE);
             exerciseInfo.setVisibility(View.VISIBLE);
@@ -143,13 +151,18 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         } else {
             exerciseStress = "";
         }
-        if (exerciseContents.matches("")){
-            Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
-            return;
-        }
         if (exerciseStress.matches("")){
             Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
             return;
+        }
+        if (exerciseContents.matches("")){
+            String s = exercises.getSelectedItem().toString();
+            if (s.matches("Ei Valintaa")) {
+                Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
+                return;
+            } else{
+                exerciseContents = s;
+            }
         }
         SaveExercise save = new SaveExercise(exerciseContents, exerciseStress);
         save.add();

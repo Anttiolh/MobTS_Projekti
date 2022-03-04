@@ -69,5 +69,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        loadVariables();
+}
+
+public void loadVariables(){
     }
 }

@@ -109,10 +109,9 @@
         android:layout_height="48dp"
         android:contentDescription="@string/app_name"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/RadioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:layout_editor_absoluteY="429dp"
         tools:visibility="invisible" />
 
     <RadioGroup
