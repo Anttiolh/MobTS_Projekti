@@ -12,21 +12,30 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    private TextView date;
+    private Date today;
+    private String dayString;
+    private SimpleDateFormat dateFormat;
+    private Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView date = findViewById(R.id.editTextDate);
-        Date today = new Date();
-        String dayString = today.toString();
-        date.setText(dayString);
-
         final Spinner menu = findViewById(R.id.dropDownMenu);
+
+        date = findViewById(R.id.editTextDate);
+        today = new Date();
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        dayString =  today.toString();
+        date.setText(dayString);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.menu, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
