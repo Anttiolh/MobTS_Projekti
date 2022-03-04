@@ -119,6 +119,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         } else {
             exerciseStress = "Raskas";
         }
+
     }
 
     public void saveExercise(View v){
