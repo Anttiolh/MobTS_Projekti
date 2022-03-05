@@ -139,11 +139,16 @@
 
         <CalendarView
             android:id="@+id/simpleCalendarView"
-            android:layout_width="411dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            style="@android:style/Widget.DeviceDefault.CalendarView"
+            android:layout_width="414dp"
+            android:layout_height="343dp"
+            android:layout_marginTop="4dp"
+            android:background="#74FFFFFF"
+            android:fadingEdge="horizontal|vertical"
+            android:selectedWeekBackgroundColor="#E4B2B2"
+            android:touchscreenBlocksFocus="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.666"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/deleteDrink" />
 
