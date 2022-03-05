@@ -16,139 +16,136 @@
         android:backgroundTintMode="src_atop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         tools:context=".FoodActivity">
 
-        <ImageButton
-            android:id="@+id/foodButton"
-            android:layout_width="41dp"
-            android:layout_height="32dp"
-            android:backgroundTint="#00B7FFC1"
-            android:onClick="addFood"
-            android:text="."
-            android:tint="#1E421F"
-            app:iconTint="#4CAF50"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.213"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.297"
-            app:srcCompat="@android:drawable/arrow_up_float" />
-
-        <ImageButton
-            android:id="@+id/drinkButton"
-            android:layout_width="36dp"
-            android:layout_height="31dp"
-            android:backgroundTint="#00B7FFC1"
-            android:onClick="addWater"
-            android:text="."
-            android:tint="#1E421F"
-            app:iconTint="#36E8FF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.21"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/foodButton"
-            app:layout_constraintVertical_bias="0.135"
-            app:srcCompat="@android:drawable/arrow_up_float" />
-
         <TextView
-            android:id="@+id/foodCountText"
-            android:layout_width="202dp"
-            android:layout_height="47dp"
+            android:id="@+id/textView"
+            android:layout_width="141dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/beth_ellen"
-            android:text="0"
-            android:textColor="#1D3220"
+            android:text="Ruoka ja juoma"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.626"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.303" />
-
-        <TextView
-            android:id="@+id/drinkCountText"
-            android:layout_width="122dp"
-            android:layout_height="46dp"
-            android:fontFamily="@font/beth_ellen"
-            android:text="0"
-            android:textColor="#1C2733"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.453"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.44" />
+            app:layout_constraintEnd_toEndOf="@+id/foodButton"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/deleteMeal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="#00FF8282"
             android:onClick="subtractFood"
-            android:tint="#5E3232"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.637"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/drinkButton"
+            app:layout_constraintStart_toEndOf="@+id/foodCountText"
+            app:layout_constraintTop_toBottomOf="@+id/foodButton"
+            app:srcCompat="@android:drawable/arrow_down_float"
+            app:tint="#5E3232" />
+
+        <ImageButton
+            android:id="@+id/foodButton"
+            android:layout_width="39dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="68dp"
+            android:backgroundTint="#00B7FFC1"
+            android:onClick="addFood"
+            android:text="."
+            app:iconTint="#4CAF50"
+            app:layout_constraintBottom_toTopOf="@+id/deleteMeal"
+            app:layout_constraintStart_toEndOf="@+id/foodCountText"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.296"
-            app:srcCompat="@android:drawable/arrow_down_float" />
+            app:srcCompat="@android:drawable/arrow_up_float"
+            app:tint="#1E421F" />
 
         <ImageButton
             android:id="@+id/deleteDrink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
             android:backgroundTint="#00FF8282"
             android:onClick="subtractWater"
-            android:tint="#5E3232"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.637"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/drinkCountText"
+            app:layout_constraintTop_toBottomOf="@+id/drinkButton"
+            app:srcCompat="@android:drawable/arrow_down_float"
+            app:tint="#5E3232" />
+
+        <ImageButton
+            android:id="@+id/drinkButton"
+            android:layout_width="39dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#00B7FFC1"
+            android:onClick="addWater"
+            android:text="."
+            app:iconTint="#36E8FF"
+            app:layout_constraintBottom_toTopOf="@+id/deleteDrink"
+            app:layout_constraintStart_toEndOf="@+id/drinkCountText"
             app:layout_constraintTop_toBottomOf="@+id/deleteMeal"
-            app:layout_constraintVertical_bias="0.139"
-            app:srcCompat="@android:drawable/arrow_down_float" />
+            app:srcCompat="@android:drawable/arrow_up_float"
+            app:tint="#1E421F" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="58dp"
             android:layout_height="52dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/foodButton"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.292"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
             app:srcCompat="@drawable/imageedit_4_2817814241" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="47dp"
             android:layout_height="51dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/drinkButton"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="28dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.088"
             app:srcCompat="@drawable/imageedit_4_6135496679" />
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="163dp"
-            android:layout_height="53dp"
+            android:id="@+id/drinkCountText"
+            android:layout_width="65dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:fontFamily="@font/beth_ellen"
-            android:text="Ruoka ja juoma"
+            android:text="0"
+            android:textColor="#1C2733"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/foodCountText" />
+
+        <TextView
+            android:id="@+id/foodCountText"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/beth_ellen"
+            android:text="0"
+            android:textColor="#1D3220"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <CalendarView
+            android:id="@+id/simpleCalendarView"
+            android:layout_width="411dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.278"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.146" />
+            app:layout_constraintTop_toBottomOf="@+id/deleteDrink" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
