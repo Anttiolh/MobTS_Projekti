@@ -26,6 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +41,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
     private boolean isCounterPresent;
     private int stepCount = 0;
     private boolean status;
-    BarChart chart;
+    BarChart barChart;
     RadioGroup rg;
     TextView exerciseInfo;
     TextView chooseFromMenu;
@@ -50,13 +53,19 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
     String exerciseContents;
     private Spinner exercises;
 
+    private ArrayList<Double>valueList;
+    private ArrayList<BarEntry>entries;
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
+        valueList = new ArrayList<>();
+        entries = new ArrayList<>();
         exercises = findViewById(R.id.exerciseMenu);
-        chart = findViewById(R.id.BarChart);
+        barChart = findViewById(R.id.BarChart);
         rg = findViewById(R.id.RadioGroup);
         exerciseInfo = findViewById(R.id.textView2);
         chooseFromMenu = findViewById(R.id.textView4);
@@ -118,7 +127,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.exercises, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
             exercises.setAdapter(adapter);
-            chart.setVisibility(View.INVISIBLE);
+            barChart.setVisibility(View.INVISIBLE);
             rg.setVisibility(View.VISIBLE);
             exerciseInfo.setVisibility(View.VISIBLE);
             chooseFromMenu.setVisibility(View.VISIBLE);
@@ -128,7 +137,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
             button.setVisibility(View.VISIBLE);
             status = true;
         } else if (status){
-            chart.setVisibility(View.VISIBLE);
+            barChart.setVisibility(View.VISIBLE);
             rg.setVisibility(View.INVISIBLE);
             exerciseInfo.setVisibility(View.INVISIBLE);
             chooseFromMenu.setVisibility(View.INVISIBLE);
@@ -166,7 +175,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         }
         SaveExercise save = new SaveExercise(exerciseContents, exerciseStress);
         save.add();
-        chart.setVisibility(View.VISIBLE);
+        barChart.setVisibility(View.VISIBLE);
         rg.setVisibility(View.INVISIBLE);
         exerciseInfo.setVisibility(View.INVISIBLE);
         chooseFromMenu.setVisibility(View.INVISIBLE);
@@ -175,5 +184,31 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         spinner.setVisibility(View.INVISIBLE);
         button.setVisibility(View.INVISIBLE);
         status = false;
+
+        showBarChart();
+    }
+
+    private void showBarChart(){
+        String title = "Title";
+
+        for (int i = 0; i<1;i++){
+            valueList.add(1.0);
+
+        }
+
+        for (int i = 0; i<valueList.size();i++){
+            BarEntry barEntry = new BarEntry(i, valueList.get(i).floatValue());
+            if(entries.size()>=5){
+                entries.remove(0);
+            }
+            entries.add(barEntry);
+
+        }
+
+        BarDataSet barDataSet = new BarDataSet(entries, title);
+
+        BarData data = new BarData(barDataSet);
+        barChart.setData(data);
+        barChart.invalidate();
     }
 }

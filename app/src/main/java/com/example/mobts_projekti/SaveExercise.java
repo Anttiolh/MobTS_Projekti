@@ -26,4 +26,8 @@ public class SaveExercise extends Actions{
     public String toString(){
         return this.exerciseContents + ", " + this.exerciseStress;
     }
+
+    public int getSize(){
+        return exercises.size();
+    }
 }

@@ -23,7 +23,8 @@ public class SleepActivity extends AppCompatActivity {
     private int min;
     private BarChart barChart;
     SleepHours save;
-
+    private ArrayList<Double>valueList;
+    private ArrayList<BarEntry>entries;
 
 
     @Override
@@ -33,6 +34,9 @@ public class SleepActivity extends AppCompatActivity {
 
         timePicker = findViewById(R.id.timePicker);
         barChart = findViewById(R.id.barChart);
+
+        valueList = new ArrayList<>();
+        entries = new ArrayList<>();
 
     }
 
@@ -46,17 +50,22 @@ public class SleepActivity extends AppCompatActivity {
     }
 
     private void showBarChart(){
-        ArrayList<Double>valueList = new ArrayList<>();
-        ArrayList<BarEntry>entries = new ArrayList<>();
         String title = "Title";
 
         for (int i = 0; i<save.getSize();i++){
-            valueList.add(save.getSleepTime(i) * 100.1);
+            valueList.add(save.getSleepTime(i));
+            if(save.getSize()>5){
+                save.clearOne();
+            }
         }
 
         for (int i = 0; i<valueList.size();i++){
             BarEntry barEntry = new BarEntry(i, valueList.get(i).floatValue());
+            if(entries.size()>=5){
+                entries.remove(0);
+            }
             entries.add(barEntry);
+
         }
 
         BarDataSet barDataSet = new BarDataSet(entries, title);

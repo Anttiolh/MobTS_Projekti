@@ -33,4 +33,8 @@ public class SleepHours {
         return sleepList.size();
     }
 
+    public void clearOne(){
+        sleepList.remove(0);
+    }
+
 }
