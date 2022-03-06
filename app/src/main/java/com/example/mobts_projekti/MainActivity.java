@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         date = findViewById(R.id.editTextDate);
         today = new Date();
         dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        dayString =  today.toString();
+        dayString = today.toString();
         date.setText(dayString);
         foodToday = findViewById(R.id.foodToday);
         drinkToday = findViewById(R.id.drinkToday);
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
+
             public void onNothingSelected(AdapterView<?> parent) {
                 Intent intent = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -80,8 +81,20 @@ public class MainActivity extends AppCompatActivity {
         loadVariables();
         InitializeMapFromFile();
         updateFoodLabelText();
-}
-    Map<String,Actions> fullList;
+        updateWaterLabelText();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        fullList = null;
+        InitializeMapFromFile();
+        updateFoodLabelText();
+        updateWaterLabelText();
+    }
+
+    Map<String, Actions> fullList;
+
     private void InitializeMapFromFile() {
         if (fullList == null) {
             fullList = (Map<String, Actions>) SavedUserData.ReadObjectFromFile(this);
@@ -90,12 +103,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private void updateFoodLabelText() {
         String foodIdentifier = Utils.now() + "_" + SavedUserData.type.Food;
         String foodNumber;
         foodNumber = fullList.get(foodIdentifier) == null ? "0" : fullList.get(foodIdentifier).getValue();
         foodToday.setText("Syödyt annokset     " + foodNumber);
     }
-public void loadVariables(){
+
+    private void updateWaterLabelText() {
+        String waterIdentifier = Utils.now() + "_" + SavedUserData.type.Water;
+        String drinkNumber;
+        drinkNumber = fullList.get(waterIdentifier) == null ? "0" : fullList.get(waterIdentifier).getValue();
+        drinkToday.setText("  Juodut juomat      " + drinkNumber);
+
+    }
+    public void loadVariables() {
     }
 }
