@@ -1,8 +1,10 @@
 package com.example.mobts_projekti.percistance;
 
+import android.content.Context;
 import android.renderscript.Long4;
 import android.util.Log;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -10,7 +12,7 @@ import java.io.ObjectOutputStream;
 
 public class SavedUserData {
 
-    private static String fileToSave = "C:\\opt\\Counter\\counter_";
+    private static String fileToSave = "HealthFile";
 
     public enum type {
         Food,
@@ -21,11 +23,9 @@ public class SavedUserData {
     }
 
     //saving files
-    public static void WriteObjectToFile(Object serObj) {
-
+    public static void WriteObjectToFile(Context context, Object serObj) {
         try {
-
-            FileOutputStream fileOut = new FileOutputStream(fileToSave);
+            FileOutputStream fileOut = new FileOutputStream(new File(context.getFilesDir(), fileToSave));
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(serObj);
             objectOut.close();
@@ -34,10 +34,9 @@ public class SavedUserData {
         }
     }
 
-    public static Object ReadObjectFromFile(){
-        String currentDate = Utils.now();
+    public static Object ReadObjectFromFile(Context context){
         try {
-            FileInputStream fileIn = new FileInputStream(fileToSave);
+            FileInputStream fileIn = new FileInputStream(new File(context.getFilesDir(), fileToSave));
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
             Object obj = objectIn.readObject();
