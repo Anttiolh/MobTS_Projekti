@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -18,11 +16,15 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "TESTI";
     private TextView date;
     private Date today;
     private String dayString;
     private SimpleDateFormat dateFormat;
     private Calendar calendar;
+    TextView foodYesterday;
+    TextView drinkYesterday;
+    TextView sleepYesterday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
         dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         dayString =  today.toString();
         date.setText(dayString);
-
+        foodYesterday = findViewById(R.id.foodToday);
+        drinkYesterday = findViewById(R.id.drinkToday);
+        sleepYesterday = findViewById(R.id.sleepToday);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.menu, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         menu.setAdapter(adapter);
