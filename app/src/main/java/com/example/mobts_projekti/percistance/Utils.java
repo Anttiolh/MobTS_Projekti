@@ -16,4 +16,7 @@ public class Utils {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH);
     }
+    public static String parseCalendarToString(Calendar cal) {
+        return cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH);
+    }
 }
