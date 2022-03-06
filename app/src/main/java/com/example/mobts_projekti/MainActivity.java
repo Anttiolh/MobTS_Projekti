@@ -10,9 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.mobts_projekti.percistance.SavedUserData;
+import com.example.mobts_projekti.percistance.Utils;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private Date today;
     private String dayString;
     private SimpleDateFormat dateFormat;
-    private Calendar calendar;
-    TextView foodYesterday;
-    TextView drinkYesterday;
-    TextView sleepYesterday;
+    TextView foodToday;
+    TextView drinkToday;
+    TextView sleepToday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
         dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         dayString =  today.toString();
         date.setText(dayString);
-        foodYesterday = findViewById(R.id.foodToday);
-        drinkYesterday = findViewById(R.id.drinkToday);
-        sleepYesterday = findViewById(R.id.sleepToday);
+        foodToday = findViewById(R.id.foodToday);
+        drinkToday = findViewById(R.id.drinkToday);
+        sleepToday = findViewById(R.id.sleepToday);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.menu, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         menu.setAdapter(adapter);
@@ -74,8 +78,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         loadVariables();
+        InitializeMapFromFile();
+        updateFoodLabelText();
 }
-
+    Map<String,Actions> fullList;
+    private void InitializeMapFromFile() {
+        if (fullList == null) {
+            fullList = (Map<String, Actions>) SavedUserData.ReadObjectFromFile(this);
+            if (fullList == null) {
+                fullList = new HashMap<>();
+            }
+        }
+    }
+    private void updateFoodLabelText() {
+        String foodIdentifier = Utils.now() + "_" + SavedUserData.type.Food;
+        String foodNumber;
+        foodNumber = fullList.get(foodIdentifier) == null ? "0" : fullList.get(foodIdentifier).getValue();
+        foodToday.setText("Syödyt annokset     " + foodNumber);
+    }
 public void loadVariables(){
     }
 }
