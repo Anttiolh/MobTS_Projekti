@@ -1,11 +1,6 @@
 package com.example.mobts_projekti;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -13,8 +8,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -25,23 +18,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import com.example.mobts_projekti.percistance.SavedUserData;
+import com.example.mobts_projekti.percistance.Utils;
 import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ExerciseActivity extends AppCompatActivity implements SensorEventListener {
     private static final String TAG = "TESTI";
-    private TextView tvStepCounter;
-    private SensorManager sensorManager;
-    private Sensor stepCounter;
-    private boolean isCounterPresent;
-    private int stepCount = 0;
-    private boolean status;
-    BarChart barChart;
     RadioGroup rg;
     TextView exerciseInfo;
     TextView chooseFromMenu;
@@ -51,11 +42,17 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
     Button button;
     String exerciseStress;
     String exerciseContents;
+    String today = Utils.now();
+    Map<String, List<SaveExercise>> historyExercises;
+    private TextView tvStepCounter;
+    private SensorManager sensorManager;
+    private Sensor stepCounter;
+    private boolean isCounterPresent;
+    private int stepCount = 0;
+    private boolean status;
     private Spinner exercises;
-
-    private ArrayList<Double>valueList;
-    private ArrayList<BarEntry>entries;
-
+    private ArrayList<Double> valueList;
+    private ArrayList<BarEntry> entries;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -65,7 +62,6 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         valueList = new ArrayList<>();
         entries = new ArrayList<>();
         exercises = findViewById(R.id.exerciseMenu);
-        barChart = findViewById(R.id.BarChart);
         rg = findViewById(R.id.RadioGroup);
         exerciseInfo = findViewById(R.id.textView2);
         chooseFromMenu = findViewById(R.id.textView4);
@@ -73,8 +69,8 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         editText = findViewById(R.id.ExerciseName);
         spinner = findViewById(R.id.exerciseMenu);
         button = findViewById(R.id.save_button);
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION)== PackageManager.PERMISSION_DENIED){
-            requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION},0);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 0);
         }
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -82,18 +78,19 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         tvStepCounter = findViewById(R.id.Steps);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!= null){
-            stepCounter=sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-            isCounterPresent=true;
-        }else{
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+            stepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            isCounterPresent = true;
+        } else {
             tvStepCounter.setText("Sensori ei ole aktiivinen");
-            isCounterPresent=false;
+            isCounterPresent = false;
         }
+        initializeMapFromFile();
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        if(sensorEvent.sensor == stepCounter){
+        if (sensorEvent.sensor == stepCounter) {
             stepCount = (int) sensorEvent.values[0];
             tvStepCounter.setText(String.valueOf(stepCount));
         }
@@ -107,27 +104,26 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
     @Override
     protected void onResume() {
         super.onResume();
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
-            sensorManager.registerListener(this, stepCounter,SensorManager.SENSOR_DELAY_NORMAL);
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+            sensorManager.registerListener(this, stepCounter, SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
-            sensorManager.unregisterListener(this,stepCounter);
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+            sensorManager.unregisterListener(this, stepCounter);
         }
     }
 
-    public void addExercise(View v){
+    public void addExercise(View v) {
         if (!status) {
             editText.setText("");
             rg.clearCheck();
             ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.exercises, android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
             exercises.setAdapter(adapter);
-            barChart.setVisibility(View.INVISIBLE);
             rg.setVisibility(View.VISIBLE);
             exerciseInfo.setVisibility(View.VISIBLE);
             chooseFromMenu.setVisibility(View.VISIBLE);
@@ -136,8 +132,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
             spinner.setVisibility(View.VISIBLE);
             button.setVisibility(View.VISIBLE);
             status = true;
-        } else if (status){
-            barChart.setVisibility(View.VISIBLE);
+        } else if (status) {
             rg.setVisibility(View.INVISIBLE);
             exerciseInfo.setVisibility(View.INVISIBLE);
             chooseFromMenu.setVisibility(View.INVISIBLE);
@@ -149,33 +144,48 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         }
     }
 
-    public void saveExercise(View v){
+    private void saveExerciseToMap(String exerciseContents, String exerciseStress) {
+        String exerciseIdentifier = today + "_" + SavedUserData.type.Exercises;
+        List<SaveExercise> todayRecords = historyExercises.get(exerciseIdentifier) == null ? new ArrayList<>() : historyExercises.get(exerciseIdentifier);
+        todayRecords.add(new SaveExercise(exerciseContents, exerciseStress));
+        historyExercises.put(exerciseIdentifier, todayRecords);
+        SavedUserData.WriteObjectToFile(this, historyExercises, SavedUserData.type.Exercises);
+    }
+
+    private void initializeMapFromFile() {
+        if (historyExercises == null) {
+            historyExercises = (Map<String, List<SaveExercise>>) SavedUserData.ReadObjectFromFile(this, SavedUserData.type.Exercises);
+            if (historyExercises == null) {
+                historyExercises = new HashMap<>();
+            }
+        }
+    }
+
+    public void saveExercise(View v) {
         exerciseContents = editText.getText().toString();
-        if (rg.getCheckedRadioButtonId() == R.id.radioButton_light){
+        if (rg.getCheckedRadioButtonId() == R.id.radioButton_light) {
             exerciseStress = "Kevyt";
-        } else if (rg.getCheckedRadioButtonId() == R.id.radioButton_medium){
+        } else if (rg.getCheckedRadioButtonId() == R.id.radioButton_medium) {
             exerciseStress = "Keskiraskas";
         } else if (rg.getCheckedRadioButtonId() == R.id.radioButton_heavy) {
             exerciseStress = "Raskas";
         } else {
             exerciseStress = "";
         }
-        if (exerciseStress.matches("")){
+        if (exerciseStress.matches("")) {
             Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (exerciseContents.matches("")){
+        if (exerciseContents.matches("")) {
             String s = exercises.getSelectedItem().toString();
             if (s.matches("Ei Valintaa")) {
                 Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
                 return;
-            } else{
+            } else {
                 exerciseContents = s;
             }
         }
-        SaveExercise save = new SaveExercise(exerciseContents, exerciseStress);
-        save.add();
-        barChart.setVisibility(View.VISIBLE);
+        saveExerciseToMap(exerciseContents, exerciseStress);
         rg.setVisibility(View.INVISIBLE);
         exerciseInfo.setVisibility(View.INVISIBLE);
         chooseFromMenu.setVisibility(View.INVISIBLE);
@@ -185,30 +195,6 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         button.setVisibility(View.INVISIBLE);
         status = false;
 
-        showBarChart();
-    }
-
-    private void showBarChart(){
-        String title = "Title";
-
-        for (int i = 0; i<1;i++){
-            valueList.add(1.0);
-
         }
 
-        for (int i = 0; i<valueList.size();i++){
-            BarEntry barEntry = new BarEntry(i, valueList.get(i).floatValue());
-            if(entries.size()>=5){
-                entries.remove(0);
-            }
-            entries.add(barEntry);
-
-        }
-
-        BarDataSet barDataSet = new BarDataSet(entries, title);
-
-        BarData data = new BarData(barDataSet);
-        barChart.setData(data);
-        barChart.invalidate();
     }
-}

@@ -1,33 +1,26 @@
 package com.example.mobts_projekti;
 
-import android.text.Editable;
+import java.io.Serializable;
 
-import com.example.mobts_projekti.percistance.SavedUserData;
+public class SaveExercise implements Serializable {
 
-import java.util.ArrayList;
-
-public class SaveExercise extends Actions{
-
-    ArrayList<SaveExercise> exercises = new ArrayList<>();
-    private String exerciseContents;
-    private String exerciseStress;
+    private final String exerciseContents;
+    private final String exerciseStress;
 
     public SaveExercise(String exerciseContents, String exerciseStress) {
         this.exerciseContents = exerciseContents;
         this.exerciseStress = exerciseStress;
     }
 
-    public void add(){
-        SaveExercise newSave = new SaveExercise(this.exerciseContents, this.exerciseStress);
-        exercises.add(newSave);
-        type = SavedUserData.type.Exercises;
-    }
-
-    public String toString(){
+    public String toString() {
         return this.exerciseContents + ", " + this.exerciseStress;
     }
 
-    public int getSize(){
-        return exercises.size();
+    public String getExerciseContents() {
+        return exerciseContents;
+    }
+
+    public String getExerciseStress() {
+        return exerciseStress;
     }
 }
