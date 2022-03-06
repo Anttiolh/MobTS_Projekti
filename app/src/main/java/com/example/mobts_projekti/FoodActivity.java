@@ -66,7 +66,7 @@ public class FoodActivity extends AppCompatActivity {
 
     private void InitializeMapFromFile(){
         if(fullList == null) {
-            fullList = (Map<String,Actions>) SavedUserData.ReadObjectFromFile(this);
+            fullList = (Map<String,Actions>) SavedUserData.ReadObjectFromFile(this, SavedUserData.type.Food);
             if (fullList == null) {
                 fullList = new HashMap<>();
             }
@@ -92,7 +92,7 @@ public class FoodActivity extends AppCompatActivity {
         String foodNumber;
         foodNumber = selectedFood == null ? "0" : (selectedFood.getValue());
         foodHit.setText(foodNumber);
-        SavedUserData.WriteObjectToFile(this, fullList);
+        SavedUserData.WriteObjectToFile(this, fullList, SavedUserData.type.Food);
     }
 
     public void addWater(View view){
@@ -114,7 +114,7 @@ public class FoodActivity extends AppCompatActivity {
         String drinkNumber;
         drinkNumber = selectedDrink == null ? "0" : (selectedDrink.getValue());
         drinkHit.setText(drinkNumber);
-        SavedUserData.WriteObjectToFile(this, fullList);
+        SavedUserData.WriteObjectToFile(this, fullList, SavedUserData.type.Food);
     }
 }
 

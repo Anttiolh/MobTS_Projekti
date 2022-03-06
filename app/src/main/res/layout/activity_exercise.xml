@@ -10,8 +10,8 @@
         android:id="@+id/StepText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="100dp"
         android:text="Askeleet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,8 +20,8 @@
         android:id="@+id/Steps"
         android:layout_width="56dp"
         android:layout_height="32dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="216dp"
         android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,31 +30,19 @@
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="228dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="136dp"
         android:onClick="addExercise"
         android:text="Lisää harjoitus!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/BarChart"
-        android:layout_width="300dp"
-        android:layout_height="270dp"
-        android:layout_marginBottom="40dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:visibility="visible" />
-
     <EditText
         android:id="@+id/ExerciseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="312dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="168dp"
         android:ems="10"
         android:hint="@string/app_name"
         android:inputType="textPersonName"
@@ -68,8 +56,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="324dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="168dp"
         android:text="Harjoituksen sisältö:"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,11 +68,11 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="384dp"
+        android:layout_marginTop="268dp"
         android:text="TAI valitse valikosta:"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="invisible" />
@@ -97,21 +85,22 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/RadioGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.371"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseMenu"
-        app:layout_constraintVertical_bias="0.531"
+        app:layout_constraintVertical_bias="0.165"
         tools:visibility="invisible" />
 
     <Spinner
         android:id="@+id/exerciseMenu"
         android:layout_width="375dp"
         android:layout_height="48dp"
+        android:layout_marginTop="308dp"
         android:contentDescription="@string/app_name"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="429dp"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="invisible" />
 
     <RadioGroup

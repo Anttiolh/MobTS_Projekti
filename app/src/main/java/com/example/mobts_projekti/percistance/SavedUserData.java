@@ -23,9 +23,9 @@ public class SavedUserData {
     }
 
     //saving files
-    public static void WriteObjectToFile(Context context, Object serObj) {
+    public static void WriteObjectToFile(Context context, Object serObj, type type) {
         try {
-            FileOutputStream fileOut = new FileOutputStream(new File(context.getFilesDir(), fileToSave));
+            FileOutputStream fileOut = new FileOutputStream(new File(context.getFilesDir(), fileToSave+type));
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(serObj);
             objectOut.close();
@@ -34,9 +34,9 @@ public class SavedUserData {
         }
     }
 
-    public static Object ReadObjectFromFile(Context context){
+    public static Object ReadObjectFromFile(Context context, type type){
         try {
-            FileInputStream fileIn = new FileInputStream(new File(context.getFilesDir(), fileToSave));
+            FileInputStream fileIn = new FileInputStream(new File(context.getFilesDir(), fileToSave+type));
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
 
             Object obj = objectIn.readObject();

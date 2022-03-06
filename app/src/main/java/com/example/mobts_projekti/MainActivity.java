@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SimpleDateFormat dateFormat;
     TextView foodToday;
     TextView drinkToday;
+    TextView exerciseToday;
     TextView sleepToday;
 
     @Override
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         foodToday = findViewById(R.id.foodToday);
         drinkToday = findViewById(R.id.drinkToday);
         sleepToday = findViewById(R.id.sleepToday);
+        exerciseToday = findViewById(R.id.exerciseToday);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.menu, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         menu.setAdapter(adapter);
@@ -82,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         InitializeMapFromFile();
         updateFoodLabelText();
         updateWaterLabelText();
+        initializeMapFromFileExercises();
+        updateExerciseLabelText();
     }
 
     @Override
@@ -91,13 +96,16 @@ public class MainActivity extends AppCompatActivity {
         InitializeMapFromFile();
         updateFoodLabelText();
         updateWaterLabelText();
+        historyExercises = null;
+        initializeMapFromFileExercises();
+        updateExerciseLabelText();
     }
 
     Map<String, Actions> fullList;
 
     private void InitializeMapFromFile() {
         if (fullList == null) {
-            fullList = (Map<String, Actions>) SavedUserData.ReadObjectFromFile(this);
+            fullList = (Map<String, Actions>) SavedUserData.ReadObjectFromFile(this, SavedUserData.type.Food);
             if (fullList == null) {
                 fullList = new HashMap<>();
             }
@@ -108,15 +116,34 @@ public class MainActivity extends AppCompatActivity {
         String foodIdentifier = Utils.now() + "_" + SavedUserData.type.Food;
         String foodNumber;
         foodNumber = fullList.get(foodIdentifier) == null ? "0" : fullList.get(foodIdentifier).getValue();
-        foodToday.setText("Syödyt annokset     " + foodNumber);
+        foodToday.setText("\t\t\t\tSyödyt annokset     " + foodNumber + " annosta");
     }
 
     private void updateWaterLabelText() {
         String waterIdentifier = Utils.now() + "_" + SavedUserData.type.Water;
         String drinkNumber;
         drinkNumber = fullList.get(waterIdentifier) == null ? "0" : fullList.get(waterIdentifier).getValue();
-        drinkToday.setText("  Juodut juomat      " + drinkNumber);
+        drinkToday.setText("\t\tJuodut juomat\t\t\t\t\t" + drinkNumber + " ml");
 
+    }
+    Map<String, List<SaveExercise>> historyExercises;
+
+    private void initializeMapFromFileExercises() {
+        if (historyExercises == null) {
+            historyExercises = (Map<String, List<SaveExercise>>) SavedUserData.ReadObjectFromFile(this, SavedUserData.type.Exercises);
+            if (historyExercises == null) {
+                historyExercises = new HashMap<>();
+            }
+        }
+    }
+
+
+    private void updateExerciseLabelText() {
+        String exerciseIdentifier = Utils.now() + "_" + SavedUserData.type.Exercises;
+        List<SaveExercise> listExercise;
+        listExercise = historyExercises.get(exerciseIdentifier) == null ? null : historyExercises.get(exerciseIdentifier);
+        String exerciseLabel = "Päivän treeni tehty\t\t";
+        exerciseToday.setText((listExercise == null || listExercise.isEmpty()) ? exerciseLabel + "X" : exerciseLabel + "V");
     }
     public void loadVariables() {
     }

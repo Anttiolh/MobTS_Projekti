@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kuola/Documents/MobTS_Projekti/app/src/main/res/layout/activity_achievements.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/kuola/Documents/MobTS_Projekti/app/src/main/res/layout/activity_exercise.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/kuola/Documents/MobTS_Projekti/app/src/main/res/layout/activity_food.xml" value="0.33" />
-        <entry key="..\:/Users/kuola/Documents/MobTS_Projekti/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/kuola/Documents/MobTS_Projekti/app/src/main/res/layout/activity_main.xml" value="0.33" />
       </map>
     </option>
   </component>
