@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/taustataskupuoskari"
+    android:background="@drawable/taustataskupuoskari6"
     tools:context=".MainActivity">
 
 
@@ -13,43 +13,37 @@
         android:layout_width="314dp"
         android:layout_height="48dp"
         android:layout_marginTop="36dp"
+        android:foregroundTint="#45FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="164dp"
-        android:text="Nimi"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
         android:id="@+id/editTextDate"
-        android:layout_width="267dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="28dp"
+        style="@android:style/Widget.Material.Light.EditText"
+        android:layout_width="324dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="164dp"
+        android:backgroundTint="#00FFFFFF"
         android:ems="10"
+        android:fontFamily="@font/jura_light"
         android:inputType="date"
+        android:textColor="#D5FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.734"
-        app:layout_constraintStart_toEndOf="@+id/userName"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="140dp"
         android:layout_height="52dp"
-        android:fontFamily="@font/beth_ellen"
+        android:fontFamily="@font/jura_light"
         android:text="Yhteenveto:"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -59,35 +53,36 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="33dp"
-        android:layout_height="34dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.628"
+        app:layout_constraintVertical_bias="0.623"
         app:srcCompat="@drawable/imageedit_4_2817814241" />
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="26dp"
-        android:layout_height="30dp"
+        android:layout_width="22dp"
+        android:layout_height="27dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.141"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.697"
+        app:layout_constraintVertical_bias="0.708"
         app:srcCompat="@drawable/imageedit_4_6135496679" />
 
     <TextView
         android:id="@+id/foodToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/beth_ellen"
+        android:fontFamily="@font/jura_light"
         android:text="Syödyt annokset"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.376"
@@ -99,23 +94,25 @@
         android:id="@+id/drinkToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/beth_ellen"
+        android:fontFamily="@font/jura_light"
         android:text="Juodut juomat"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.357"
+        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.707" />
+        app:layout_constraintVertical_bias="0.702" />
 
     <TextView
         android:id="@+id/sleepToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/beth_ellen"
+        android:fontFamily="@font/jura_light"
         android:text="Yöunet"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.295"
@@ -127,38 +124,39 @@
         android:id="@+id/exerciseToday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/beth_ellen"
+        android:fontFamily="@font/jura_light"
         android:text="Harjoitusten määrä"
         android:textColor="#FFFFFF"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.406"
+        app:layout_constraintHorizontal_bias="0.398"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.858" />
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="56dp"
-        android:layout_height="76dp"
+        android:layout_width="36dp"
+        android:layout_height="54dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintHorizontal_bias="0.128"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.803"
+        app:layout_constraintVertical_bias="0.796"
         app:srcCompat="@drawable/moon_icon" />
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="43dp"
-        android:layout_height="54dp"
+        android:layout_width="28dp"
+        android:layout_height="37dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintHorizontal_bias="0.127"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.875"
+        app:layout_constraintVertical_bias="0.867"
         app:srcCompat="@drawable/run_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
