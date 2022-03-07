@@ -50,7 +50,7 @@ public class SleepActivity extends AppCompatActivity {
     }
 
     private void showBarChart(){
-        String title = "Title";
+        String title = "Uni";
 
         for (int i = 0; i<save.getSize();i++){
             valueList.add(save.getSleepTime(i));
