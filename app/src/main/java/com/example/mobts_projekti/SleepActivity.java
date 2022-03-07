@@ -2,6 +2,7 @@ package com.example.mobts_projekti;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +27,8 @@ public class SleepActivity extends AppCompatActivity {
     private int min;
     private BarChart barChart;
     SleepHours save;
-    private ArrayList<Double>valueList;
-    private ArrayList<BarEntry>entries;
+    private ArrayList<Double> valueList;
+    private ArrayList<BarEntry> entries;
 
 
     @Override
@@ -39,39 +40,37 @@ public class SleepActivity extends AppCompatActivity {
         valueList = new ArrayList<>();
         entries = new ArrayList<>();
         timePicker.setIs24HourView(true);
-
     }
 
-    public void setSleepTime(View view){
+    //Add sleep time
+    public void setSleepTime(View view) {
         hour = timePicker.getCurrentHour();
         min = timePicker.getCurrentMinute();
         save = new SleepHours(hour, min);
         save.add();
-        Log.d(TAG, "omg");
         showBarChart();
     }
 
-    private void showBarChart(){
+    //Display sleep data on bars
+    private void showBarChart() {
         String title = "Uni";
 
-        for (int i = 0; i<save.getSize();i++){
+        for (int i = 0; i < save.getSize(); i++) {
             valueList.add(save.getSleepTime(i));
-            if(save.getSize()>5){
+            if (save.getSize() > 5) {
                 save.clearOne();
             }
         }
 
-        for (int i = 0; i<valueList.size();i++){
+        for (int i = 0; i < valueList.size(); i++) {
             BarEntry barEntry = new BarEntry(i, valueList.get(i).floatValue());
-            if(entries.size()>=5){
+            if (entries.size() >= 5) {
                 entries.remove(0);
             }
             entries.add(barEntry);
 
         }
-
         BarDataSet barDataSet = new BarDataSet(entries, title);
-
         BarData data = new BarData(barDataSet);
         barChart.setData(data);
         barChart.invalidate();
