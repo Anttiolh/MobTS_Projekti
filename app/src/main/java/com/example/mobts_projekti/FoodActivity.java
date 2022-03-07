@@ -17,11 +17,9 @@ import java.util.Map;
 
 public class FoodActivity extends AppCompatActivity {
     CalendarView simpleCalendarView;
-    // display the selected date by using a toast
     String selectedDate = "";
     Food selectedFood;
     Water selectedDrink;
-
     String today = Utils.now();
     Map<String,Actions> fullList;
 

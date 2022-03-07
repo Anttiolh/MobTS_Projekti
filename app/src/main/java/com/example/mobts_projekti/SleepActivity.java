@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import com.example.mobts_projekti.percistance.Utils;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class SleepActivity extends AppCompatActivity {
     private static final String TAG = "TESTI";
@@ -31,12 +34,11 @@ public class SleepActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
-
         timePicker = findViewById(R.id.timePicker);
         barChart = findViewById(R.id.barChart);
-
         valueList = new ArrayList<>();
         entries = new ArrayList<>();
+        timePicker.setIs24HourView(true);
 
     }
 

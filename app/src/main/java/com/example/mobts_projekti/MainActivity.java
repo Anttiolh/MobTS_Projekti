@@ -116,14 +116,14 @@ public class MainActivity extends AppCompatActivity {
         String foodIdentifier = Utils.now() + "_" + SavedUserData.type.Food;
         String foodNumber;
         foodNumber = fullList.get(foodIdentifier) == null ? "0" : fullList.get(foodIdentifier).getValue();
-        foodToday.setText("\t\t\t\tSyödyt annokset     " + foodNumber + " annosta");
+        foodToday.setText("\t\t\t\t\t\tSyödyt annokset\t\t\t\t\t" + foodNumber + "\t\tannosta");
     }
 
     private void updateWaterLabelText() {
         String waterIdentifier = Utils.now() + "_" + SavedUserData.type.Water;
         String drinkNumber;
         drinkNumber = fullList.get(waterIdentifier) == null ? "0" : fullList.get(waterIdentifier).getValue();
-        drinkToday.setText("\t\tJuodut juomat\t\t\t\t\t" + drinkNumber + " ml");
+        drinkToday.setText("\t\t\t\t\tJuodut juomat\t\t\t\t\t\t" + drinkNumber + "\t\ttml");
 
     }
     Map<String, List<SaveExercise>> historyExercises;
@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
         String exerciseIdentifier = Utils.now() + "_" + SavedUserData.type.Exercises;
         List<SaveExercise> listExercise;
         listExercise = historyExercises.get(exerciseIdentifier) == null ? null : historyExercises.get(exerciseIdentifier);
-        String exerciseLabel = "Päivän treeni tehty\t\t";
-        exerciseToday.setText((listExercise == null || listExercise.isEmpty()) ? exerciseLabel + "X" : exerciseLabel + "V");
+        String exerciseLabel = "\t\t\tPäivän treeni\t\t\t\t\t\t\t";
+        exerciseToday.setText((listExercise == null || listExercise.isEmpty()) ? exerciseLabel + "Ei tehty" : exerciseLabel + "Tehty");
     }
     public void loadVariables() {
     }
