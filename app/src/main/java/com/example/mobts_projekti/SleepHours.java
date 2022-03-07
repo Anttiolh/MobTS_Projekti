@@ -24,9 +24,9 @@ public class SleepHours {
     public double getSleepTime(int index){
         int thisHour = sleepList.get(index).hour;
         int thisMin = sleepList.get(index).min;
-        double asd = thisMin / 60 + thisHour;
+        double timeSlept = thisMin / 60 + thisHour;
 
-        return asd;
+        return timeSlept;
     }
 
     public int getSize(){

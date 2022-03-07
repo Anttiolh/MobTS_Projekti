@@ -72,12 +72,9 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_DENIED) {
             requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 0);
         }
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
         tvStepCounter = findViewById(R.id.Steps);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
+        //checks if step sensor is active
         if (sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
             stepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
             isCounterPresent = true;
@@ -88,6 +85,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         initializeMapFromFile();
     }
 
+    //gets values from step sensor
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (sensorEvent.sensor == stepCounter) {
@@ -98,7 +96,6 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
-
     }
 
     @Override
@@ -144,6 +141,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         }
     }
 
+    //save exercises to list to SavedUserData
     private void saveExerciseToMap(String exerciseContents, String exerciseStress) {
         String exerciseIdentifier = today + "_" + SavedUserData.type.Exercises;
         List<SaveExercise> todayRecords = historyExercises.get(exerciseIdentifier) == null ? new ArrayList<>() : historyExercises.get(exerciseIdentifier);
@@ -161,6 +159,7 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         }
     }
 
+    //save selected Radiogroup button
     public void saveExercise(View v) {
         exerciseContents = editText.getText().toString();
         if (rg.getCheckedRadioButtonId() == R.id.radioButton_light) {
@@ -172,13 +171,15 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         } else {
             exerciseStress = "";
         }
-        if (!exerciseContents.matches("")){
+        //if user tries to select two similar activities display error message
+        if (!exerciseContents.matches("")) {
             String s = exercises.getSelectedItem().toString();
-            if (!s.matches("Ei Valintaa")){
+            if (!s.matches("Ei Valintaa")) {
                 Toast.makeText(this, "Et voi valita kahta harjoittelua samaan aikaan!", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
+        //if all required fields are not filled display error message
         if (exerciseStress.matches("")) {
             Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
             return;
@@ -201,7 +202,5 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         spinner.setVisibility(View.INVISIBLE);
         button.setVisibility(View.INVISIBLE);
         status = false;
-
-        }
-
     }
+}

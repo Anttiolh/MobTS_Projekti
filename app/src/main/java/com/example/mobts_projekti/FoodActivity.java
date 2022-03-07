@@ -27,11 +27,11 @@ public class FoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
-        simpleCalendarView = (CalendarView) findViewById(R.id.simpleCalendarView); // get the reference of CalendarView
-        simpleCalendarView.setFocusedMonthDateColor(Color.RED); // set the red color for the dates of  focused month
-        simpleCalendarView.setUnfocusedMonthDateColor(Color.BLUE); // set the yellow color for the dates of an unfocused month
-        simpleCalendarView.setSelectedWeekBackgroundColor(Color.RED); // red color for the selected week's background
-        simpleCalendarView.setWeekSeparatorLineColor(Color.GREEN); // green color for the week separator line
+        simpleCalendarView = (CalendarView) findViewById(R.id.simpleCalendarView);
+        simpleCalendarView.setFocusedMonthDateColor(Color.RED);
+        simpleCalendarView.setUnfocusedMonthDateColor(Color.BLUE);
+        simpleCalendarView.setSelectedWeekBackgroundColor(Color.RED);
+        simpleCalendarView.setWeekSeparatorLineColor(Color.GREEN);
         // perform setOnDateChangeListener event on CalendarView
         simpleCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -46,15 +46,12 @@ public class FoodActivity extends AppCompatActivity {
 
     public void selectDate(String date) {
         InitializeMapFromFile();
-        // display the selected date by using a toast
         selectedDate = date;
-        // Food
         TextView foodHit = findViewById(R.id.foodCountText);
         String foodIdentifier = selectedDate + "_" + SavedUserData.type.Food;
         selectedFood = fullList.get(foodIdentifier) != null ? (Food)fullList.get(foodIdentifier) : null;
         String foodDisplay = selectedFood == null ? "0" : selectedFood.getValue() ;
         foodHit.setText(foodDisplay);
-        // Drink
         TextView drinkHit = findViewById(R.id.drinkCountText);
         String drinkIdentifier = selectedDate + "_" + SavedUserData.type.Water;
         selectedDrink = fullList.get(drinkIdentifier) != null ? (Water)fullList.get(drinkIdentifier) : null;
@@ -89,7 +86,7 @@ public class FoodActivity extends AppCompatActivity {
         TextView foodHit = findViewById(R.id.foodCountText);
         String foodNumber;
         foodNumber = selectedFood == null ? "0" : (selectedFood.getValue());
-        foodHit.setText(foodNumber);
+        foodHit.setText(foodNumber + "\t\tannosta");
         SavedUserData.WriteObjectToFile(this, fullList, SavedUserData.type.Food);
     }
 
@@ -111,7 +108,7 @@ public class FoodActivity extends AppCompatActivity {
         TextView drinkHit = findViewById(R.id.drinkCountText);
         String drinkNumber;
         drinkNumber = selectedDrink == null ? "0" : (selectedDrink.getValue());
-        drinkHit.setText(drinkNumber);
+        drinkHit.setText(drinkNumber + "\t\tml");
         SavedUserData.WriteObjectToFile(this, fullList, SavedUserData.type.Food);
     }
 }

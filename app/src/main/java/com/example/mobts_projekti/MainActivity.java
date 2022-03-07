@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.menu, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         menu.setAdapter(adapter);
-
         menu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            //Change activity by selecting an item from spinner
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 switch (pos) {
                     case 0:
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //update data from saved files on screen (after restart)
         loadVariables();
         InitializeMapFromFile();
         updateFoodLabelText();
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         initializeMapFromFileExercises();
         updateExerciseLabelText();
     }
-
+    //update data from saved files on screen (while running)
     @Override
     public void onResume() {
         super.onResume();
@@ -100,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
         initializeMapFromFileExercises();
         updateExerciseLabelText();
     }
-
     Map<String, Actions> fullList;
+    Map<String, List<SaveExercise>> historyExercises;
 
     private void InitializeMapFromFile() {
         if (fullList == null) {
@@ -111,23 +112,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+    //update amount of eaten meals on MainActivity
     private void updateFoodLabelText() {
         String foodIdentifier = Utils.now() + "_" + SavedUserData.type.Food;
         String foodNumber;
         foodNumber = fullList.get(foodIdentifier) == null ? "0" : fullList.get(foodIdentifier).getValue();
         foodToday.setText("\t\t\t\t\t\tSyödyt annokset\t\t\t\t\t" + foodNumber + "\t\tannosta");
     }
-
+    //update amount of drink on MainActivity
     private void updateWaterLabelText() {
         String waterIdentifier = Utils.now() + "_" + SavedUserData.type.Water;
         String drinkNumber;
         drinkNumber = fullList.get(waterIdentifier) == null ? "0" : fullList.get(waterIdentifier).getValue();
-        drinkToday.setText("\t\t\t\t\tJuodut juomat\t\t\t\t\t\t" + drinkNumber + "\t\ttml");
+        drinkToday.setText("\t\t\t\t\tJuodut juomat\t\t\t\t\t\t" + drinkNumber + "\t\t ml");
 
     }
-    Map<String, List<SaveExercise>> historyExercises;
-
     private void initializeMapFromFileExercises() {
         if (historyExercises == null) {
             historyExercises = (Map<String, List<SaveExercise>>) SavedUserData.ReadObjectFromFile(this, SavedUserData.type.Exercises);
@@ -136,8 +135,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-
+    //check if user has done exercises on MainActivity
     private void updateExerciseLabelText() {
         String exerciseIdentifier = Utils.now() + "_" + SavedUserData.type.Exercises;
         List<SaveExercise> listExercise;
