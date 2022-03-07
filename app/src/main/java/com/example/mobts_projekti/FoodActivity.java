@@ -33,12 +33,7 @@ public class FoodActivity extends AppCompatActivity {
         simpleCalendarView.setSelectedWeekBackgroundColor(Color.RED);
         simpleCalendarView.setWeekSeparatorLineColor(Color.GREEN);
         // perform setOnDateChangeListener event on CalendarView
-        simpleCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                selectDate(year + "-" + month + "-" + dayOfMonth);
-            }
-        });
+        simpleCalendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> selectDate(year + "-" + month + "-" + dayOfMonth));
         selectDate(today);
         updateFoodLabelText();
         updateWaterLabelText();
@@ -80,6 +75,10 @@ public class FoodActivity extends AppCompatActivity {
         updateFoodLabelText();
     }
 
+    /** This method is for Updating the text
+     * Params: none
+     * Return: Void
+     */
     private void updateFoodLabelText() {
         String foodIdentifier = selectedDate + "_" + SavedUserData.type.Food;
         fullList.put(foodIdentifier, selectedFood);

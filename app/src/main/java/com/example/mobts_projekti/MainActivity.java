@@ -1,7 +1,5 @@
 package com.example.mobts_projekti;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,11 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mobts_projekti.percistance.SavedUserData;
 import com.example.mobts_projekti.percistance.Utils;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,14 +22,17 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "TESTI";
-    private TextView date;
-    private Date today;
-    private String dayString;
-    private SimpleDateFormat dateFormat;
     TextView foodToday;
     TextView drinkToday;
     TextView exerciseToday;
     TextView sleepToday;
+    Map<String, Actions> fullList;
+    Map<String, List<SaveExercise>> historyExercises;
+    Map<String, List<SleepHours>> sleepHistory;
+    private TextView date;
+    private Date today;
+    private String dayString;
+    private SimpleDateFormat dateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,10 @@ public class MainActivity extends AppCompatActivity {
         updateWaterLabelText();
         initializeMapFromFileExercises();
         updateExerciseLabelText();
+        InitializeMapForSleepFromFile();
+        updateSleepLabelText();
     }
+
     //update data from saved files on screen (while running)
     @Override
     public void onResume() {
@@ -100,9 +105,10 @@ public class MainActivity extends AppCompatActivity {
         historyExercises = null;
         initializeMapFromFileExercises();
         updateExerciseLabelText();
+        sleepHistory = null;
+        InitializeMapForSleepFromFile();
+        updateSleepLabelText();
     }
-    Map<String, Actions> fullList;
-    Map<String, List<SaveExercise>> historyExercises;
 
     private void InitializeMapFromFile() {
         if (fullList == null) {
@@ -112,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     //update amount of eaten meals on MainActivity
     private void updateFoodLabelText() {
         String foodIdentifier = Utils.now() + "_" + SavedUserData.type.Food;
@@ -119,14 +126,16 @@ public class MainActivity extends AppCompatActivity {
         foodNumber = fullList.get(foodIdentifier) == null ? "0" : fullList.get(foodIdentifier).getValue();
         foodToday.setText("\t\t\t\t\t\tSyödyt annokset\t\t\t\t\t" + foodNumber + "\t\tannosta");
     }
+
     //update amount of drink on MainActivity
     private void updateWaterLabelText() {
         String waterIdentifier = Utils.now() + "_" + SavedUserData.type.Water;
         String drinkNumber;
         drinkNumber = fullList.get(waterIdentifier) == null ? "0" : fullList.get(waterIdentifier).getValue();
-        drinkToday.setText("\t\t\t\t\tJuodut juomat\t\t\t\t\t\t" + drinkNumber + "\t\t ml");
+        drinkToday.setText("\t\t\t\t\t\tJuodut juomat\t\t\t\t\t\t" + drinkNumber + "\t\t ml");
 
     }
+
     private void initializeMapFromFileExercises() {
         if (historyExercises == null) {
             historyExercises = (Map<String, List<SaveExercise>>) SavedUserData.ReadObjectFromFile(this, SavedUserData.type.Exercises);
@@ -135,14 +144,34 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     //check if user has done exercises on MainActivity
     private void updateExerciseLabelText() {
         String exerciseIdentifier = Utils.now() + "_" + SavedUserData.type.Exercises;
         List<SaveExercise> listExercise;
         listExercise = historyExercises.get(exerciseIdentifier) == null ? null : historyExercises.get(exerciseIdentifier);
-        String exerciseLabel = "\t\t\tPäivän treeni\t\t\t\t\t\t\t";
+        String exerciseLabel = "\t\t\t\tPäivän treeni\t\t\t\t\t\t\t";
         exerciseToday.setText((listExercise == null || listExercise.isEmpty()) ? exerciseLabel + "Ei tehty" : exerciseLabel + "Tehty");
     }
+
+    private void InitializeMapForSleepFromFile() {
+        if (sleepHistory == null) {
+            sleepHistory = (Map<String, List<SleepHours>>) SavedUserData.ReadObjectFromFile(this, SavedUserData.type.Sleep);
+            if (sleepHistory == null) {
+                sleepHistory = new HashMap<>();
+            }
+        }
+    }
+
+    private void updateSleepLabelText() {
+        String sleepIdentifier = Utils.now() + "_" + SavedUserData.type.Sleep;
+        List<SleepHours> listSleep;
+        listSleep = sleepHistory.get(sleepIdentifier) == null ? null : sleepHistory.get(sleepIdentifier);
+        Double totalHours = Utils.calculateTotalHoursSleepDay(listSleep);
+        String sleepLabel = "\t\t\t\t\t\tNukutut yöunet\t\t\t\t\t\t";
+        sleepToday.setText((listSleep == null || listSleep.isEmpty()) ? sleepLabel + "0" : sleepLabel + totalHours + "\th");
+    }
+
     public void loadVariables() {
     }
 }
