@@ -172,6 +172,13 @@ public class ExerciseActivity extends AppCompatActivity implements SensorEventLi
         } else {
             exerciseStress = "";
         }
+        if (!exerciseContents.matches("")){
+            String s = exercises.getSelectedItem().toString();
+            if (!s.matches("Ei Valintaa")){
+                Toast.makeText(this, "Et voi valita kahta harjoittelua samaan aikaan!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
         if (exerciseStress.matches("")) {
             Toast.makeText(this, "Kaikki kentät eivät ole täytetty!", Toast.LENGTH_SHORT).show();
             return;
