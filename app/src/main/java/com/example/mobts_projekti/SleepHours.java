@@ -1,40 +1,23 @@
 package com.example.mobts_projekti;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class SleepHours {
-    private int hour;
-    private int min;
-    private ArrayList<SleepHours> sleepList = new ArrayList<>();
+public class SleepHours implements Serializable {
+    private final int hour;
+    private final int min;
 
-    public SleepHours(int newHour, int newMin){
+
+    public SleepHours(int newHour, int newMin) {
         this.hour = newHour;
         this.min = newMin;
     }
 
-    public void add(){
-        SleepHours newSleep = new SleepHours(this.hour, this.min);
-        sleepList.add(newSleep);
-    }
-
-    public String getHours(){
-        return sleepList.toString();
-    }
-
-    public double getSleepTime(int index){
-        int thisHour = sleepList.get(index).hour;
-        int thisMin = sleepList.get(index).min;
+    public Double getSleepTime() {
+        int thisHour = hour;
+        int thisMin = min;
         double timeSlept = thisMin / 60 + thisHour;
-
         return timeSlept;
     }
 
-    public int getSize(){
-        return sleepList.size();
-    }
-
-    public void clearOne(){
-        sleepList.remove(0);
-    }
 
 }

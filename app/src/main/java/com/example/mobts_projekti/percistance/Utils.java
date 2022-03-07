@@ -1,6 +1,7 @@
 package com.example.mobts_projekti.percistance;
 
 import com.example.mobts_projekti.SaveExercise;
+import com.example.mobts_projekti.SleepHours;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,4 +38,13 @@ public class Utils {
         return date;
     }
 
+    public static Double calculateTotalHoursSleepDay(List<SleepHours> list) {
+        double total = 0.0;
+        if(list != null && list.size() > 0) {
+            for (SleepHours sleepHours: list) {
+                total += sleepHours.getSleepTime();
+            }
+        }
+        return total;
+    }
 }
