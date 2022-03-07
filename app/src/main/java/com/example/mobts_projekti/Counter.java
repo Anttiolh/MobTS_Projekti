@@ -32,11 +32,6 @@ public class Counter implements Serializable {
             value = value - step;
         }
     }
-
-    public void reset(){
-        value = 0;
-    }
-
     public String getValue()
     {
         return Integer.toString(value);

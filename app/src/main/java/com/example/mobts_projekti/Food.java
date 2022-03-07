@@ -9,7 +9,6 @@ public class Food extends Actions {
         counter = new Counter(16, 0, 1);
         type = SavedUserData.type.Food;
     }
-
     public Food(int value) {
         counter = new Counter(16, 0, 1);
         counter.setValue(value);
