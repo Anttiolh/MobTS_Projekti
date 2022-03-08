@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Spinner menu = findViewById(R.id.dropDownMenu);
-
         date = findViewById(R.id.editTextDate);
         today = new Date();
         dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         drinkToday = findViewById(R.id.drinkToday);
         sleepToday = findViewById(R.id.sleepToday);
         exerciseToday = findViewById(R.id.exerciseToday);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.menu, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.menu, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         menu.setAdapter(adapter);
         menu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             //Change activity by selecting an item from spinner

@@ -16,7 +16,7 @@
         android:layout_marginTop="36dp"
         android:backgroundTint="#FFFFFF"
         android:dropDownSelector="@android:drawable/divider_horizontal_bright"
-        android:foregroundTint="#ADFFFFFF"
+        android:foregroundTint="@color/white"
         android:popupBackground="@drawable/taustataskupuoskaridrop"
         android:soundEffectsEnabled="true"
         android:theme="@style/Theme.AppCompat.Light"
