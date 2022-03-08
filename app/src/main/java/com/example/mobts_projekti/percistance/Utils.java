@@ -42,7 +42,7 @@ public class Utils {
         double total = 0.0;
         if(list != null && list.size() > 0) {
             for (SleepHours sleepHours: list) {
-                total += sleepHours.getSleepTime();
+                total += sleepHours.getSleepTimeDisplay();
             }
         }
         return total;

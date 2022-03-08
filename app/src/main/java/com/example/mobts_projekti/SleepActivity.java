@@ -1,9 +1,11 @@
 package com.example.mobts_projekti;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TimePicker;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobts_projekti.percistance.SavedUserData;
@@ -42,13 +44,37 @@ public class SleepActivity extends AppCompatActivity {
         showBarChart();
     }
 
+    public void showErrorMessage() {
+        new AlertDialog.Builder(this)
+                .setTitle("Virhe")
+                .setMessage("Virheellinen aika annettu!")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Continue with delete operation
+                    }
+                })
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
     //Add sleep time
     public void setSleepTime(View view) {
-        String sleepIdentifier = today + "_" + SavedUserData.type.Sleep;
+        Double totalHours = Utils.calculateTotalHoursSleepDay(sleepList);
         hour = timePicker.getCurrentHour();
         min = timePicker.getCurrentMinute();
+        SleepHours newRecord = new SleepHours(hour, min);
+        if (newRecord.getSleepTime() == 0.0 || totalHours + newRecord.getSleepTime() > 24.0) {
+            timePicker.setCurrentHour(new Integer(0));
+            timePicker.setCurrentMinute(new Integer(0));
+            showErrorMessage();
+            return;
+        }
+        String sleepIdentifier = today + "_" + SavedUserData.type.Sleep;
         refreshCurrentRecord();
-        sleepList.add(new SleepHours(hour, min));
+        sleepList.add(newRecord);
         fullList.put(sleepIdentifier, sleepList);
         SavedUserData.WriteObjectToFile(this, fullList, SavedUserData.type.Sleep);
         showBarChart();
