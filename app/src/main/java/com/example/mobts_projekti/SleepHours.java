@@ -15,7 +15,14 @@ public class SleepHours implements Serializable {
     public Double getSleepTime() {
         int thisHour = hour;
         int thisMin = min;
-        double timeSlept = thisMin / 60 + thisHour;
+        double timeSlept = Math.ceil(thisMin / 60.0) + thisHour;
+        return timeSlept;
+    }
+
+    public Double getSleepTimeDisplay() {
+        int thisHour = hour;
+        int thisMin = min;
+        double timeSlept = (thisMin / 60.0) + thisHour;
         return timeSlept;
     }
 
